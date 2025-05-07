@@ -1,5 +1,6 @@
 import { api } from "@/data/api";
 import { Product } from "@/data/types/product";
+import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 
@@ -17,6 +18,17 @@ async function getProduct(slug: string): Promise<Product> {
   const product = response.json();
 
   return product;
+}
+
+export async function generateMetadata({
+  params,
+}: Readonly<{
+  params: Promise<ProductProps>;
+}>): Promise<Metadata> {
+  const product = await getProduct((await params).slug);
+  return {
+    title: product.title,
+  };
 }
 
 async function ProductPage({

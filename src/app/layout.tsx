@@ -18,7 +18,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "devstore",
+  title: {
+    template: "%s | devstore",
+    default: "devstore",
+  },
 };
 
 export default function RootLayout({
