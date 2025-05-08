@@ -29,7 +29,16 @@ export async function generateMetadata({
   return {
     title: product.title,
   };
-}
+} //metadados que podem ser  utilizados em outro local da app
+
+export async function generateStaticParams() {
+  const response = await api("/products/featured");
+  const products: Product[] = await response.json();
+
+  return products.map((product) => {
+    return { slug: product.slug };
+  });
+} //geração estatica para cachear pagina no momento da build
 
 async function ProductPage({
   params,
